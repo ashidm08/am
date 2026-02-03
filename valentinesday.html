@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ashid ❤️ Merlina | Valentine's Countdown</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #ff4e78, #ff7eb3);
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      overflow: hidden;
+    }
+
+    /* Floating Hearts */
+    .heart {
+      position: absolute;
+      bottom: -20px;
+      font-size: 20px;
+      animation: floatUp linear infinite;
+      opacity: 0.8;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-120vh) scale(1.5); opacity: 0; }
+    }
+
+    .card {
+      position: relative;
+      z-index: 2;
+      background: rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(12px);
+      border-radius: 24px;
+      padding: 35px 25px;
+      max-width: 520px;
+      width: 100%;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+    }
+
+    h1 {
+      margin-bottom: 5px;
+      font-size: clamp(2rem, 6vw, 2.6rem);
+    }
+    h2 {
+      margin: 0 0 15px;
+      font-weight: 400;
+      opacity: 0.95;
+    }
+    p {
+      margin-bottom: 25px;
+      opacity: 0.9;
+    }
+
+    .timer {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+    }
+    .box {
+      background: rgba(0,0,0,0.25);
+      border-radius: 16px;
+      padding: 15px 10px;
+    }
+    .number {
+      font-size: clamp(1.8rem, 6vw, 2.4rem);
+      font-weight: bold;
+    }
+    .label {
+      font-size: 0.8rem;
+      opacity: 0.85;
+      margin-top: 5px;
+    }
+
+    /* Happy Valentine Animation */
+    .happy {
+      display: none;
+      animation: pop 1s ease-in-out infinite alternate;
+      font-size: clamp(2.2rem, 7vw, 3rem);
+    }
+    @keyframes pop {
+      from { transform: scale(1); }
+      to { transform: scale(1.08); }
+    }
+
+    footer {
+      margin-top: 20px;
+      font-size: 0.75rem;
+      opacity: 0.85;
+    }
+
+    @media (max-width: 480px) {
+      .timer {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h1>Ashid ❤️ Merlina</h1>
+    <h2 id="title">Valentine's Day Countdown</h2>
+    <p id="subtitle">Counting every heartbeat until love day arrives</p>
+
+    <div class="happy" id="happyText">💖 Happy Valentine’s Day 💖</div>
+
+    <div class="timer" id="timer">
+      <div class="box">
+        <div class="number" id="days">0</div>
+        <div class="label">Days</div>
+      </div>
+      <div class="box">
+        <div class="number" id="hours">0</div>
+        <div class="label">Hours</div>
+      </div>
+      <div class="box">
+        <div class="number" id="minutes">0</div>
+        <div class="label">Minutes</div>
+      </div>
+      <div class="box">
+        <div class="number" id="seconds">0</div>
+        <div class="label">Seconds</div>
+      </div>
+    </div>
+
+    <footer>Forever & Always ❤️</footer>
+  </div>
+
+  <script>
+    function updateCountdown() {
+      const now = new Date();
+      const year = now.getFullYear();
+      let valentine = new Date(year, 1, 14, 0, 0, 0);
+
+      if (now > valentine) {
+        valentine = new Date(year + 1, 1, 14, 0, 0, 0);
+      }
+
+      const diff = valentine - now;
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      const isValentine = now.getMonth() === 1 && now.getDate() === 14;
+
+      if (isValentine) {
+        document.getElementById('timer').style.display = 'none';
+        document.getElementById('happyText').style.display = 'block';
+        document.getElementById('subtitle').textContent = 'Today is all about love 💕';
+      } else {
+        document.getElementById('days').textContent = days;
+        document.getElementById('hours').textContent = hours;
+        document.getElementById('minutes').textContent = minutes;
+        document.getElementById('seconds').textContent = seconds;
+      }
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    /* Hearts Generator */
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.textContent = '❤️';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = 5 + Math.random() * 5 + 's';
+      heart.style.fontSize = 16 + Math.random() * 24 + 'px';
+      document.body.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 10000);
+    }
+
+    setInterval(createHeart, 300);
+  </script>
+</body>
+</html>
