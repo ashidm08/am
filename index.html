@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ashid ❤️ Merleina | Valentine's Countdown</title>
+  <title>Ashid ❤️ Merleina | Countdown</title>
 
   <style>
     * {
@@ -116,10 +116,10 @@
 
   <div class="card">
     <h1>Ashid ❤️ Merleina</h1>
-    <h2 id="title">Valentine's Day Countdown</h2>
-    <p id="subtitle">Counting every heartbeat until love day arrives</p>
+    <h2 id="title">Countdown to Our Day</h2>
+    <p id="subtitle">Counting every heartbeat until the moment arrives</p>
 
-    <div class="happy" id="happyText">💖 Happy Valentine’s Day 💖</div>
+    <div class="happy" id="happyText">💖 It’s Time 💖</div>
 
     <div class="timer" id="timer">
       <div class="box">
@@ -148,27 +148,26 @@
 
     function updateCountdown() {
       const now = new Date();
-      const year = now.getFullYear();
-      let valentine = new Date(year, 1, 14, 0, 0, 0);
 
-      if (now > valentine) {
-        valentine = new Date(year + 1, 1, 14, 0, 0, 0);
-      }
+      // 🎯 SET YOUR TARGET DATE & TIME HERE
+      const targetDate = new Date(2026, 1, 14, 0, 0, 0); 
+      // Month is 0-based → 1 = February
 
-      const diff = valentine - now;
+      const diff = targetDate - now;
 
+      // ⏱ Countdown finished
       if (diff <= 0 && !redirected) {
         redirected = true;
 
         document.getElementById('timer').style.display = 'none';
         document.getElementById('happyText').style.display = 'block';
-        document.getElementById('subtitle').textContent = 'Today is all about love 💕';
-        document.getElementById('title').textContent = "It's Valentine’s Day ❤️";
+        document.getElementById('title').textContent = "It's Time ❤️";
+        document.getElementById('subtitle').textContent = "Our moment has arrived 💕";
 
-        // ⏱ Redirect after 5 seconds
+        // 🚀 Redirect to video page
         setTimeout(() => {
-          window.location.href = "auvideo.html"; // 👈 change page name here
-        }, 5000);
+          window.location.href = "./auvideo.html";
+        }, 1000);
 
         return;
       }
@@ -178,10 +177,10 @@
       const minutes = Math.floor((diff / (1000 * 60)) % 60);
       const seconds = Math.floor((diff / 1000) % 60);
 
-      document.getElementById('days').textContent = days;
-      document.getElementById('hours').textContent = hours;
-      document.getElementById('minutes').textContent = minutes;
-      document.getElementById('seconds').textContent = seconds;
+      document.getElementById('days').textContent = Math.max(days, 0);
+      document.getElementById('hours').textContent = Math.max(hours, 0);
+      document.getElementById('minutes').textContent = Math.max(minutes, 0);
+      document.getElementById('seconds').textContent = Math.max(seconds, 0);
     }
 
     updateCountdown();
@@ -203,4 +202,3 @@
 
 </body>
 </html>
-
