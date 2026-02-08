@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mobile Video</title>
+
+<style>
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: black;
+}
+
+video {
+    width: 100vw;
+    height: 100vh;
+    object-fit: contain;
+}
+
+#soundToggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 999;
+    background: rgba(0,0,0,0.6);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 55px;
+    height: 55px;
+    font-size: 22px;
+    cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<video autoplay muted loop playsinline>
+    <source src="videoo.mp4" type="video/mp4">
+</video>
+
+<audio id="bgAudio" loop muted>
+    <source src="audioo.mp3" type="audio/mp3">
+</audio>
+
+<button id="soundToggle">🔇</button>
+
+<script>
+const audio = document.getElementById("bgAudio");
+const btn = document.getElementById("soundToggle");
+
+btn.addEventListener("click", async () => {
+    try {
+        if (audio.paused) {
+            audio.muted = false;
+            await audio.play();
+            btn.textContent = "🔊";
+        } else {
+            audio.pause();
+            btn.textContent = "🔇";
+        }
+    } catch (e) {
+        console.log("Audio play blocked:", e);
+    }
+});
+</script>
+
+</body>
+</html>
